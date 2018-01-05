@@ -6,7 +6,7 @@ import seminar1.collections.ArrayPriorityQueue;
 import seminar1.collections.IPriorityQueue;
 
 /**
- * Класс тестирующий интерфейс IPriorityQueue<Integer> на основе ArrayPriorityQueue
+ * Класс тестирующий интерфейс {@link IPriorityQueue<Integer>} на основе {@link ArrayPriorityQueue<>}
  */
 public class TestPriorityQueue {
 
