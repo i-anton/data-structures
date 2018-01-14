@@ -15,15 +15,27 @@ public class ArrayStack<Item> implements IStack<Item> {
         this.elementData = (Item[]) new Object[DEFAULT_CAPACITY];
     }
 
+    public Item top(){
+        if (size == 0) return null;
+        return elementData[size-1];
+    }
     @Override
     public void push(Item item) {
-        /* TODO: implement it */
+        if (elementData.length < size) grow();
+        elementData[size] = item;
+        size++;
     }
 
     @Override
     public Item pop() {
-        /* TODO: implement it */
-        return null;
+        if (size == 0) return null;
+        if (size / elementData.length >= 4) shrink();
+        return elementData[--size];
+    }
+
+    @Override
+    public Iterator<Item> reversedIterator() {
+        return new ReversedArrayStackIterator();
     }
 
     @Override
@@ -37,19 +49,19 @@ public class ArrayStack<Item> implements IStack<Item> {
     }
 
     private void grow() {
-        /**
-         * TODO: implement it
+        /*
          * Если массив заполнился,
          * то увеличить его размер в полтора раз
          */
+        changeCapacity(elementData.length+(elementData.length/2));
     }
 
     private void shrink() {
-        /**
-         * TODO: implement it
-         * Если количество элементов в четыре раза меньше,
-         * то уменьшить его размер в два раза
+        /*
+          Если количество элементов в четыре раза меньше,
+          то уменьшить его размер в два раза
          */
+        changeCapacity(elementData.length/2);
     }
 
     private void changeCapacity(int newCapacity) {
@@ -72,9 +84,23 @@ public class ArrayStack<Item> implements IStack<Item> {
 
         @Override
         public Item next() {
-            return elementData[--currentPosition];
+            return elementData[currentPosition--];
         }
 
     }
+    private class ReversedArrayStackIterator implements Iterator<Item> {
 
+        private int currentPosition = 0;
+
+        @Override
+        public boolean hasNext() {
+            return currentPosition < size;
+        }
+
+        @Override
+        public Item next() {
+            return elementData[currentPosition++];
+        }
+
+    }
 }

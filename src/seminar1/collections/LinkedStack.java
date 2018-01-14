@@ -3,18 +3,26 @@ package seminar1.collections;
 import java.util.Iterator;
 
 public class LinkedStack<Item> implements IStack<Item> {
-
     private Node<Item> head;
     private int size;
 
     @Override
     public void push(Item item) {
-        /* TODO: implement it */
+        head = new Node<>(item,head);
+        size++;
     }
 
     @Override
     public Item pop() {
-        /* TODO: implement it */
+        if (size <= 0) return null;
+        Item result = head.item;
+        head = head.next;
+        size--;
+        return result;
+    }
+
+    @Override
+    public Iterator<Item> reversedIterator() {
         return null;
     }
 
@@ -34,26 +42,41 @@ public class LinkedStack<Item> implements IStack<Item> {
     }
 
     private class LinkedStackIterator implements Iterator<Item> {
-
+        private Node<Item> current = head;
         @Override
         public boolean hasNext() {
-            /* TODO: implement it */
+            return (current.next != null);
+        }
+
+        @Override
+        public Item next() {
+            if (hasNext()){
+                Item res = current.item;
+                current = current.next;
+                return res;
+            }
+            return null;
+        }
+    }
+
+    private class ReversedLinkedStackIterator implements Iterator<Item> {
+        private Node<Item> current = head;
+        @Override
+        public boolean hasNext() {
             return false;
         }
 
         @Override
         public Item next() {
-            /* TODO: implement it */
             return null;
         }
-
     }
-
+    
     private static class Node<Item> {
         Item item;
         Node<Item> next;
 
-        public Node(Item item, Node<Item> next) {
+        Node(Item item, Node<Item> next) {
             this.item = item;
             this.next = next;
         }
