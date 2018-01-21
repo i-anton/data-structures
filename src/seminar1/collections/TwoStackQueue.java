@@ -1,6 +1,8 @@
 package seminar1.collections;
 
+
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class TwoStackQueue<Item> implements IQueue<Item> {
 
@@ -26,6 +28,7 @@ public class TwoStackQueue<Item> implements IQueue<Item> {
                 stack2.push(stack1.pop());
             }
         }
+        if (stack2.isEmpty()) throw new NoSuchElementException();
         --size;
         return stack2.pop();
     }
@@ -45,8 +48,8 @@ public class TwoStackQueue<Item> implements IQueue<Item> {
         return new TwoStackQueueIterator();
     }
 
+    //TODO: need reversed iterator
     private class TwoStackQueueIterator implements Iterator<Item> {
-        Iterator<Item> stack1Iter = stack1.reversedIterator();
         Iterator<Item> stack2Iter = stack2.iterator();
 
         @Override

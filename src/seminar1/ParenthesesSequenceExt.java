@@ -27,10 +27,11 @@ public class ParenthesesSequenceExt {
     private static final char RIGHT_BRACKET  = ']';
 
     // sequence = "()()" | "(({}[]))[[[" | "{}" | ...
-    private static boolean isBalanced(String sequence) {
+    public static boolean isBalanced(String sequence) {
         char[] chars = sequence.toCharArray();
         LinkedStack<Character> ms = new LinkedStack<>();
         for (char aChar : chars) {
+            Character temp;
             switch (aChar) {
                 case LEFT_PAREN:
                     ms.push(aChar);
@@ -43,15 +44,18 @@ public class ParenthesesSequenceExt {
                     break;
                 case RIGHT_PAREN:
                     if (ms.size() == 0) return false;
-                    if (ms.pop() != LEFT_PAREN) return false;
+                    temp = ms.pop();
+                    if (temp != LEFT_PAREN) return false;
                     break;
                 case RIGHT_BRACE:
                     if (ms.size() == 0) return false;
-                    if (ms.pop() != LEFT_BRACE) return false;
+                    temp = ms.pop();
+                    if (temp != LEFT_BRACE) return false;
                     break;
                 case RIGHT_BRACKET:
                     if (ms.size() == 0) return false;
-                    if (ms.pop() != LEFT_BRACKET) return false;
+                    temp = ms.pop();
+                    if (temp != LEFT_BRACKET) return false;
                     break;
             }
         }

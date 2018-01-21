@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("LinkedStack");
         IStack<Integer> stack = new LinkedStack<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 30; i++) {
             stack.push(i);
         }
 //        for (int i : stack) {
@@ -26,7 +26,7 @@ public class Main {
         System.out.println();
         System.out.println("LinkedQueue");
         IQueue<Integer> queue = new LinkedQueue<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 30; i++) {
             queue.enqueue(i);
         }
 //        for (int i : queue) {
@@ -41,7 +41,7 @@ public class Main {
         System.out.println();
         System.out.println("TwoStackQueue");
         queue = new TwoStackQueue<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 30; i++) {
             queue.enqueue(i);
         }
         for (int i = 0; i < 30; i++) {

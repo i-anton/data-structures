@@ -47,16 +47,13 @@ public class Solver {
         return 0;
     }
 
-    private static double evaluate(String values) {
+    public static double evaluate(String values) {
         char[] chars = values.toCharArray();
         ArrayStack<Character> operator = new ArrayStack<>();
         ArrayStack<Double> operand = new ArrayStack<>();
         int i = 0;
         while (i < chars.length) {
             if (isOperation(chars[i])){
-                while (!operator.isEmpty() && operator.top() != LEFT_PAREN){
-                    operand.push(applyOp(operator.pop(),operand.pop(),operand.pop()));
-                }
                 operator.push(chars[i]);
             } else if (chars[i]==LEFT_PAREN){
                 operator.push(chars[i]);
@@ -76,9 +73,6 @@ public class Solver {
             }
             i++;
         }
-        while (!operator.isEmpty())
-            operand.push(applyOp(operator.pop(), operand.pop(), operand.pop()));
-
         return operand.pop();
     }
 

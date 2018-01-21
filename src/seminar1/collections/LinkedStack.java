@@ -1,6 +1,7 @@
 package seminar1.collections;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class LinkedStack<Item> implements IStack<Item> {
     private Node<Item> head;
@@ -8,22 +9,18 @@ public class LinkedStack<Item> implements IStack<Item> {
 
     @Override
     public void push(Item item) {
+        if (item == null) throw new NullPointerException();
         head = new Node<>(item,head);
         size++;
     }
 
     @Override
     public Item pop() {
-        if (size <= 0) return null;
+        if (size <= 0) throw new NoSuchElementException();
         Item result = head.item;
         head = head.next;
         size--;
         return result;
-    }
-
-    @Override
-    public Iterator<Item> reversedIterator() {
-        return null;
     }
 
     @Override
@@ -59,19 +56,6 @@ public class LinkedStack<Item> implements IStack<Item> {
         }
     }
 
-    private class ReversedLinkedStackIterator implements Iterator<Item> {
-        private Node<Item> current = head;
-        @Override
-        public boolean hasNext() {
-            return false;
-        }
-
-        @Override
-        public Item next() {
-            return null;
-        }
-    }
-    
     private static class Node<Item> {
         Item item;
         Node<Item> next;

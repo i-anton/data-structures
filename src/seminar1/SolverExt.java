@@ -53,14 +53,13 @@ public class SolverExt {
                 return a * b;
             case DIVISION:
                 if (b == 0)
-                    throw new
-                            UnsupportedOperationException("Cannot divide by zero");
+                    throw new UnsupportedOperationException("Cannot divide by zero");
                 return a / b;
         }
         return 0;
     }
 
-    private static double evaluate(String values) {
+    public static double evaluate(String values) {
         char[] chars = values.toCharArray();
         ArrayStack<Character> operator = new ArrayStack<>();
         ArrayStack<Double> operand = new ArrayStack<>();

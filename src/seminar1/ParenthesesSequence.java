@@ -22,7 +22,7 @@ public class ParenthesesSequence {
     private static final char RIGHT_PAREN    = ')';
 
     // sequence = "()()" | "((((" | ")()(" | ...
-    private static boolean isBalanced(String sequence) {
+    public static boolean isBalanced(String sequence) {
         char[] chars = sequence.toCharArray();
         ArrayStack<Character> ms = new ArrayStack<>();
         for (char aChar : chars) {

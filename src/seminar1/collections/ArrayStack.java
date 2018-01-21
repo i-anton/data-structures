@@ -2,6 +2,7 @@ package seminar1.collections;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class ArrayStack<Item> implements IStack<Item> {
 
@@ -21,21 +22,16 @@ public class ArrayStack<Item> implements IStack<Item> {
     }
     @Override
     public void push(Item item) {
-        if (elementData.length < size) grow();
+        if (elementData.length <= size) grow();
         elementData[size] = item;
         size++;
     }
 
     @Override
     public Item pop() {
-        if (size == 0) return null;
+        if (size <= 0) throw new NoSuchElementException();
         if (size / elementData.length >= 4) shrink();
         return elementData[--size];
-    }
-
-    @Override
-    public Iterator<Item> reversedIterator() {
-        return new ReversedArrayStackIterator();
     }
 
     @Override
@@ -85,21 +81,6 @@ public class ArrayStack<Item> implements IStack<Item> {
         @Override
         public Item next() {
             return elementData[currentPosition--];
-        }
-
-    }
-    private class ReversedArrayStackIterator implements Iterator<Item> {
-
-        private int currentPosition = 0;
-
-        @Override
-        public boolean hasNext() {
-            return currentPosition < size;
-        }
-
-        @Override
-        public Item next() {
-            return elementData[currentPosition++];
         }
 
     }
