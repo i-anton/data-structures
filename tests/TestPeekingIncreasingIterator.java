@@ -42,7 +42,7 @@ public class TestPeekingIncreasingIterator {
 
     @Test(expected = IllegalArgumentException.class)
     public void testZeroMaxStepGrowth() {
-        // zero is not positive! look at IncreasingIterator javadoc
+        // zero is not positive! mb fix IncreasingIterator javadoc
         new PeekingIncreasingIterator(10, 11, 1, 0);
     }
 
@@ -107,14 +107,14 @@ public class TestPeekingIncreasingIterator {
 
     @Test
     public void testIsIncreasing() {
-        // Iterator should be INCREASING, next > previous, not next >= previous
+        // Iterator should be strictly INCREASING, next > previous, not next >= previous ?
         PeekingIncreasingIterator pi = new PeekingIncreasingIterator(10, 200, 30, 3);
         Integer temp;
         while (pi.hasNext()){
             temp = pi.next();
             if (pi.hasNext()) {
                 Assert.assertTrue("Not increasing Previous: "+temp+", Next: "+pi.peek(),
-                        temp < pi.peek());
+                        temp <= pi.peek());
             }
         }
     }
@@ -126,7 +126,7 @@ public class TestPeekingIncreasingIterator {
         while (pi.hasNext()){
             Integer nextTemp = pi.next();
             Assert.assertTrue("Diff is :"+(nextTemp-temp)+", Previous: "+temp+", Next: "+nextTemp,
-                    nextTemp-temp > 0 && nextTemp-temp < 100);
+                    nextTemp-temp >= 0 && nextTemp-temp < 100);
             temp = nextTemp;
         }
     }
