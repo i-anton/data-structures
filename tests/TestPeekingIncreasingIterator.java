@@ -107,7 +107,7 @@ public class TestPeekingIncreasingIterator {
 
     @Test
     public void testIsIncreasing() {
-        // Iterator should be strictly INCREASING, next > previous, not next >= previous ?
+        // Iterator should be STRICTLY INCREASING, next > previous, not next >= previous ?
         PeekingIncreasingIterator pi = new PeekingIncreasingIterator(10, 200, 30, 3);
         Integer temp;
         while (pi.hasNext()){
@@ -128,6 +128,15 @@ public class TestPeekingIncreasingIterator {
             Assert.assertTrue("Diff is :"+(nextTemp-temp)+", Previous: "+temp+", Next: "+nextTemp,
                     nextTemp-temp >= 0 && nextTemp-temp < 100);
             temp = nextTemp;
+        }
+    }
+
+    @Test
+    public void testTryToOverflowMaxValue() {
+        PeekingIncreasingIterator pi = new PeekingIncreasingIterator(0, 10, 100, 10);
+        while (pi.hasNext()){
+            Integer temp = pi.next();
+            Assert.assertTrue("Should be less than 10, but: "+temp,temp<=10);
         }
     }
 

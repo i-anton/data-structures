@@ -1,5 +1,7 @@
 package seminar1.iterators;
 
+import seminar1.collections.ArrayPriorityQueue;
+
 import java.util.Iterator;
 
 /**
@@ -15,6 +17,7 @@ import java.util.Iterator;
  */
 public class MergingPeekingIncreasingIterator implements Iterator<Integer> {
 
+    private ArrayPriorityQueue<IPeekingIterator<Integer>> iterators;
     /**
      * Конструктор итератора возвращающего возрастающую последовательность
      *
@@ -23,10 +26,13 @@ public class MergingPeekingIncreasingIterator implements Iterator<Integer> {
      */
     @SafeVarargs
     public MergingPeekingIncreasingIterator(IPeekingIterator<Integer>... peekingIterator) {
-        /* TODO: implement it */
-//        for (int i = 0; i < peekingIterator.length; i++) {
-//            peekingIterator[i].hasNext();
-//        }
+        if (peekingIterator == null) throw new NullPointerException();
+        iterators = new ArrayPriorityQueue<>();
+        for (int i = 0; i < peekingIterator.length; i++) {
+            if (peekingIterator[i].hasNext()){
+                iterators.add(peekingIterator[i]);
+            }
+        }
     }
 
     /**
@@ -34,8 +40,7 @@ public class MergingPeekingIncreasingIterator implements Iterator<Integer> {
      */
     @Override
     public boolean hasNext() {
-        /* TODO: implement it */
-        return false;
+        return !iterators.isEmpty();
     }
 
     /**
@@ -43,7 +48,11 @@ public class MergingPeekingIncreasingIterator implements Iterator<Integer> {
      */
     @Override
     public Integer next() {
-        /* TODO: implement it */
-        return null;
+        IPeekingIterator<Integer> iter = iterators.extractMin();
+        Integer toReturn = iter.next();
+        if (iter.hasNext()){
+            iterators.add(iter);
+        }
+        return toReturn;
     }
 }
