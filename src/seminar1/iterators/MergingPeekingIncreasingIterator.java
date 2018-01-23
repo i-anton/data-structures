@@ -3,6 +3,7 @@ package seminar1.iterators;
 import seminar1.collections.ArrayPriorityQueue;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Итератор возвращающий последовательность из N возрастающих итераторов в порядке возрастания
@@ -48,6 +49,7 @@ public class MergingPeekingIncreasingIterator implements Iterator<Integer> {
      */
     @Override
     public Integer next() {
+        if (iterators.isEmpty()) throw new NoSuchElementException();
         IPeekingIterator<Integer> iter = iterators.extractMin();
         Integer toReturn = iter.next();
         if (iter.hasNext()){
